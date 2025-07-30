@@ -1,0 +1,7 @@
+meta (nml) [
+    define [page (<!--content-->)] as <snip/page.html>
+    define []
+]
+print [parse (nml) {
+    page {<p>what's good?</p>}
+}]
