@@ -1,0 +1,4 @@
+[define [print (string: text)] as {
+    print(text)
+}]
+[print {hello}]
