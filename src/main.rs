@@ -42,20 +42,12 @@ enum Token {
     IncludeClose
 }
 
-pub enum Part {
-    Statement(Statement), // Each '[]', another vector of parts
-    Class(), // Each ''
-    Immediate
-}
-
+/*
 pub enum Expansion {
     Function(),
     Format(String)
 }
 
-struct Statement {
-    words: Vec<Part>
-}
 
 struct Definitions {
 
@@ -73,11 +65,68 @@ impl Evaluator for Scope {
     fn evaluate(&self, statement: Statement) -> Statement {
 
     }
+}*/
+
+pub trait Expandable {
+    fn expand(&self) -> Option<String>
+}
+
+struct Object {
+    content: String
+}
+
+impl Expandable for Object {
+    fn expand(&self) {
+        self.content
+    }
+}
+
+struct Definition {
+    
+}
+
+struct Occurrence {
+    index: i32,
+    parent: Rc<Definition>,
+}
+
+struct Scope {
+    words: HashMap<String,Vec<Occurrence>>,
+    names: HashMap<String,Rc<Object>>
+}
+
+impl Scope {
+    fn 
+}
+
+struct Statement {
+    scope: Scope,
+    parts: Vec<Part>
+}
+
+impl Expandable for Statement {
+    fn expand(&self) {
+        // Find a matching statement in the scope.
+    }
+}
+
+pub enum Part {
+    Statement(Statement), // Each '[]', another vector of parts
+    Object(Object), // Each ''
+    Word(String)
+}
+
+fn parse_statement() {
+    let statement = Statement();
+    while (let Some(token) = lexer.next() {
+        match token {
+            Ok(Token::StatementOpen) parse_statement();
+        }
+    }
 }
 
 fn main() {
     let filename: String = env::args().nth(1).expect("Filename expected to process.");
     let src: String = fs::read_to_string(&filename).expect("Could not read file.");
     let mut lexer = Token::lexer(src.as_str());
-    lexer;
 }
